@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Dashboard</title>
+    <link rel="stylesheet" href="css/dash-style.css">
+</head>
+<body>
+<div class="navbar">
+    <div class="logo">PSRR Student Portal</div>
+    <div class="nav-links">
+        <a href="">Dashboard</a>
+        <a href="attendance.html">Attendance</a>
+        <a href="results.html">Results</a>
+        <a href="notice.html">Notices</a>
+        <a href="#" onclick="logout()">Logout</a>
+    </div>
+</div>
+
+<h3 id="welcome"></h3>
+
+<script src="script.js"></script>
+<script>
+    checkLogin();
+    document.getElementById("welcome").innerText =
+        "Welcome, " + localStorage.getItem("studentName");
+</script>
+
+
+<div class="dashboard">
+    <h2>Welcome to PSRR Student Portal</h2>
+
+    <div class="cards">
+    <div class="card" onclick="goTo('attendance.html')">Attendance</div>
+    <div class="card" onclick="goTo('results.html')">Results</div>
+    <div class="card" onclick="goTo('notice.html')">Notices</div>
+    <div class="card">Profile</div>
+</div>
+
+</div>
+
+</body>
+
+<script src="script.js"></script>
+<script>
+    checkLogin();
+</script>
+
+</html>

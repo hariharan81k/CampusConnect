@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Results</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="page">
+    <h2>My Results</h2>
+
+    <table id="resultsTable">
+        <tr>
+            <th>Subject</th>
+            <th>Marks</th>
+            <th>Grade</th>
+        </tr>
+    </table>
+</div>
+
+<script src="script.js"></script>
+<script>
+    checkLogin();
+
+    const userid = localStorage.getItem("studentUserId");
+
+    fetch(`http://localhost:3000/student/results/${userid}`)
+        .then(res => res.json())
+        .then(data => {
+            const table = document.getElementById("resultsTable");
+
+            if (data.results.length === 0) {
+                table.innerHTML += `
+                    <tr>
+                        <td colspan="3">No results available</td>
+                    </tr>
+                `;
+                return;
+            }
+
+            data.results.forEach(row => {
+                const tr = document.createElement("tr");
+                tr.innerHTML = `
+                    <td>${row.subject}</td>
+                    <td>${row.marks}</td>
+                    <td>${row.grade}</td>
+                `;
+                table.appendChild(tr);
+            });
+        });
+</script>
+
+</body>
+</html>

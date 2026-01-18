@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Post Notice</title>
+</head>
+<body>
+
+<h2>Admin – Post Notice</h2>
+
+<input id="title" placeholder="Notice Title"><br><br>
+<textarea id="content" placeholder="Notice Content"></textarea><br><br>
+
+<button onclick="postNotice()">Post Notice</button>
+
+<script>
+if (!localStorage.getItem("isAdmin")) {
+    alert("Admin login required");
+    window.location.href = "admin-login.html";
+}
+
+function postNotice() {
+    fetch("http://localhost:3000/admin/notice", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            title: title.value,
+            content: content.value
+        })
+    })
+    .then(res => res.json())
+    .then(data => alert(data.message));
+}
+</script>
+
+</body>
+</html>

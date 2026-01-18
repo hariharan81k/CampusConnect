@@ -1,0 +1,32 @@
+<h2>Add Student</h2>
+
+<input placeholder="User ID" id="userid"><br><br>
+<input placeholder="Password" id="password"><br><br>
+<input placeholder="Name" id="name"><br><br>
+<input placeholder="Department" id="dept"><br><br>
+
+<button onclick="addStudent()">Add Student</button>
+
+<script>
+function addStudent() {
+    const userid = document.getElementById("userid").value;
+    const password = document.getElementById("password").value;
+    const studentName = document.getElementById("name").value;
+    const department = document.getElementById("dept").value;
+
+    fetch("http://localhost:3000/add-student", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            userid: userid,
+            password: password,
+            name: studentName,
+            department: department
+        })
+    })
+    .then(res => res.json())
+    .then(data => alert(data.message))
+    .catch(err => console.error(err));
+}
+</script>
+

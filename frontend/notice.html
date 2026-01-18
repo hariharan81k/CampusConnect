@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Notices</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h2>College Notices</h2>
+
+<div id="noticeContainer"></div>
+
+<script src="script.js"></script>
+<script>
+checkLogin();
+
+fetch("http://localhost:3000/student/notices")
+    .then(res => res.json())
+    .then(data => {
+        const container = document.getElementById("noticeContainer");
+
+        if (data.notices.length === 0) {
+            container.innerHTML = "<p>No notices available</p>";
+            return;
+        }
+
+        data.notices.forEach(n => {
+            const div = document.createElement("div");
+            div.innerHTML = `
+                <h3>${n.title}</h3>
+                <p>${n.content}</p>
+                <small>${n.created_at}</small>
+                <hr>
+            `;
+            container.appendChild(div);
+        });
+    });
+</script>
+
+</body>
+</html>

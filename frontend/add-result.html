@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Result</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 40px;
+        }
+        input {
+            padding: 8px;
+            width: 250px;
+        }
+        button {
+            padding: 10px 20px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Admin – Add Result</h2>
+
+<label>Student User ID</label><br>
+<input type="text" id="userid"><br><br>
+
+<label>Subject</label><br>
+<input type="text" id="subject"><br><br>
+
+<label>Marks</label><br>
+<input type="number" id="marks"><br><br>
+
+<label>Grade</label><br>
+<input type="text" id="grade"><br><br>
+
+<button onclick="submitResult()">Submit</button>
+
+<script>
+    // protect admin page
+    if (!localStorage.getItem("isAdmin")) {
+        alert("Admin login required");
+        window.location.href = "admin-login.html";
+    }
+
+    function submitResult() {
+        const userid = document.getElementById("userid").value;
+        const subject = document.getElementById("subject").value;
+        const marks = document.getElementById("marks").value;
+        const grade = document.getElementById("grade").value;
+
+        fetch("http://localhost:3000/admin/results", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                userid: userid,
+                subject: subject,
+                marks: marks,
+                grade: grade
+            })
+        })
+        .then(res => res.json())
+        .then(data => alert(data.message))
+        .catch(err => {
+            console.error(err);
+            alert("Error adding result");
+        });
+    }
+</script>
+
+</body>
+</html>

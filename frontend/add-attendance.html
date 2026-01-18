@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Attendance</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 40px;
+        }
+        input {
+            padding: 8px;
+            width: 250px;
+        }
+        button {
+            padding: 10px 20px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Admin – Add Attendance</h2>
+
+<label>Student User ID</label><br>
+<input type="text" id="userid"><br><br>
+
+<label>Subject</label><br>
+<input type="text" id="subject"><br><br>
+
+<label>Attendance Percentage</label><br>
+<input type="number" id="percentage"><br><br>
+
+<button onclick="submitAttendance()">Submit</button>
+
+<script>
+    // protect admin page
+    if (!localStorage.getItem("isAdmin")) {
+        alert("Admin login required");
+        window.location.href = "admin-login.html";
+    }
+
+    function submitAttendance() {
+        const userid = document.getElementById("userid").value;
+        const subject = document.getElementById("subject").value;
+        const percentage = document.getElementById("percentage").value;
+
+        fetch("http://localhost:3000/admin/attendance", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                userid: userid,
+                subject: subject,
+                percentage: percentage
+            })
+        })
+        .then(res => res.json())
+        .then(data => alert(data.message))
+        .catch(err => {
+            console.error(err);
+            alert("Error adding attendance");
+        });
+    }
+</script>
+
+</body>
+</html>

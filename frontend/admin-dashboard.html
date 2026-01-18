@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Dashboard</title>
+</head>
+<body>
+
+<h2>Admin Dashboard</h2>
+
+<ul>
+    <li><a href="add-student.html">Add Student</a></li>
+    <li><a href="add-attendance.html">Add Attendance</a></li>
+    <li><a href="add-result.html">Upload Results</a></li>
+    <li><a href="add-notice.html">Post Notice</a></li>
+    <li><a href="#" onclick="logout()">Logout</a></li>
+</ul>
+
+
+<script>
+if (!localStorage.getItem("isAdmin")) {
+    window.location.href = "admin-login.html";
+}
+
+function logout() {
+    localStorage.removeItem("isAdmin");
+    window.location.href = "admin-login.html";
+}
+</script>
+
+</body>
+</html>

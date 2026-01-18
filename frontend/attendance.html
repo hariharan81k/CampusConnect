@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Attendance</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="page">
+    <h2>My Attendance</h2>
+
+    <table id="attendanceTable">
+        <tr>
+            <th>Subject</th>
+            <th>Percentage</th>
+        </tr>
+    </table>
+</div>
+
+<script src="script.js"></script>
+<script>
+    checkLogin();
+
+    const userid = localStorage.getItem("studentUserId");
+
+    fetch(`http://localhost:3000/student/attendance/${userid}`)
+        .then(res => res.json())
+        .then(data => {
+            const table = document.getElementById("attendanceTable");
+
+            data.attendance.forEach(row => {
+                const tr = document.createElement("tr");
+                tr.innerHTML = `
+                    <td>${row.subject}</td>
+                    <td>${row.percentage}%</td>
+                `;
+                table.appendChild(tr);
+            });
+        });
+</script>
+
+</body>
+</html>
