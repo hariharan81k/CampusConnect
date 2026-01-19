@@ -1,6 +1,7 @@
 package com.campusconnect.model;
 
 import jakarta.persistence.*;
+import com.campusconnect.model.Student;
 
 @Entity
 @Table(name = "attendance")
