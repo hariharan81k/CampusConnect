@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.*;
 
 import com.campusconnect.model.Student;
 import com.campusconnect.repository.StudentRepository;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @RestController
 @RequestMapping("/api")
@@ -18,20 +17,16 @@ public class AuthController {
     @Autowired
     private StudentRepository studentRepo;
 
-    @Autowired
-    private BCryptPasswordEncoder encoder;
-
     @PostMapping("/login")
     public Map<String, Object> login(@RequestBody Student req) {
 
         Map<String, Object> res = new HashMap<>();
+        Student s = studentRepo.findByUserid(req.getUserid()).orElse(null);
 
-        Student student = studentRepo.findByUserid(req.getUserid()).orElse(null);
-
-        if (student != null && encoder.matches(req.getPassword(), student.getPassword())) {
+        if (s != null && s.getPassword().equals(req.getPassword())) {
             res.put("success", true);
-            res.put("userid", student.getUserid());
-            res.put("name", student.getName());
+            res.put("userid", s.getUserid());
+            res.put("name", s.getName());
         } else {
             res.put("success", false);
         }
@@ -39,4 +34,3 @@ public class AuthController {
         return res;
     }
 }
-
