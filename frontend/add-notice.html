@@ -13,22 +13,21 @@
 <button onclick="postNotice()">Post Notice</button>
 
 <script>
-if (!localStorage.getItem("isAdmin")) {
-    alert("Admin login required");
-    window.location.href = "admin-login.html";
-}
+function addNotice() {
+    const data = {
+        title: document.getElementById("title").value,
+        description: document.getElementById("description").value,
+        date: document.getElementById("date").value
+    };
 
-function postNotice() {
-    fetch("http://localhost:3000/admin/notice", {
+    fetch("http://localhost:8080/api/admin/notice", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-            title: title.value,
-            content: content.value
-        })
+        body: JSON.stringify(data)
     })
-    .then(res => res.json())
-    .then(data => alert(data.message));
+    .then(res => res.text())
+    .then(msg => alert(msg))
+    .catch(err => alert("Error adding notice"));
 }
 </script>
 

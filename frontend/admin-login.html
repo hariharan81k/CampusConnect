@@ -13,11 +13,11 @@
 <button onclick="adminLogin()">Login</button>
 
 <script>
-function adminLogin() {
-    const username = document.getElementById("adminUser").value;
-    const password = document.getElementById("adminPass").value;
+    function adminLogin() {
+    const username = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
 
-    fetch("http://localhost:3000/admin/login", {
+    fetch("http://localhost:8080/api/admin/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, password })
@@ -25,14 +25,14 @@ function adminLogin() {
     .then(res => res.json())
     .then(data => {
         if (data.success) {
-            localStorage.setItem("isAdmin", "true");
+            localStorage.setItem("adminLoggedIn", "true");
             window.location.href = "admin-dashboard.html";
         } else {
-            alert(data.message);
+            alert("Invalid admin credentials");
         }
     });
 }
-</script>
 
+</script>
 </body>
 </html>

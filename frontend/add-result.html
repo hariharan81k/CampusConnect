@@ -37,35 +37,24 @@
 <button onclick="submitResult()">Submit</button>
 
 <script>
-    // protect admin page
-    if (!localStorage.getItem("isAdmin")) {
-        alert("Admin login required");
-        window.location.href = "admin-login.html";
-    }
+function addResult() {
+    const data = {
+        subject: document.getElementById("subject").value,
+        marks: document.getElementById("marks").value,
+        student: {
+            userid: document.getElementById("userid").value
+        }
+    };
 
-    function submitResult() {
-        const userid = document.getElementById("userid").value;
-        const subject = document.getElementById("subject").value;
-        const marks = document.getElementById("marks").value;
-        const grade = document.getElementById("grade").value;
-
-        fetch("http://localhost:3000/admin/results", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                userid: userid,
-                subject: subject,
-                marks: marks,
-                grade: grade
-            })
-        })
-        .then(res => res.json())
-        .then(data => alert(data.message))
-        .catch(err => {
-            console.error(err);
-            alert("Error adding result");
-        });
-    }
+    fetch("http://localhost:8080/api/admin/result", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+    })
+    .then(res => res.text())
+    .then(msg => alert(msg))
+    .catch(err => alert("Error adding result"));
+}
 </script>
 
 </body>

@@ -17,15 +17,12 @@
 
 
 <script>
-if (!localStorage.getItem("isAdmin")) {
-    window.location.href = "admin-login.html";
-}
-
-function logout() {
-    localStorage.removeItem("isAdmin");
-    window.location.href = "admin-login.html";
-}
+    if (!localStorage.getItem("adminLoggedIn")) {
+        alert("Admin login required");
+        window.location.href = "admin-login.html";
+    }
 </script>
+
 
 </body>
 </html>

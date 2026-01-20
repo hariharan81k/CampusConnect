@@ -8,25 +8,20 @@
 <button onclick="addStudent()">Add Student</button>
 
 <script>
-function addStudent() {
-    const userid = document.getElementById("userid").value;
-    const password = document.getElementById("password").value;
-    const studentName = document.getElementById("name").value;
-    const department = document.getElementById("dept").value;
+    function addStudent() {
+    const student = {
+        userid: document.getElementById("userid").value,
+        password: document.getElementById("password").value,
+        name: document.getElementById("name").value
+    };
 
-    fetch("http://localhost:3000/add-student", {
+    fetch("http://localhost:8080/api/admin/student", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-            userid: userid,
-            password: password,
-            name: studentName,
-            department: department
-        })
+        body: JSON.stringify(student)
     })
     .then(res => res.json())
-    .then(data => alert(data.message))
-    .catch(err => console.error(err));
+    .then(() => alert("Student added successfully"));
 }
-</script>
 
+</script>
