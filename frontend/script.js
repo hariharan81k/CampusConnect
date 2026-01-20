@@ -2,12 +2,7 @@ function login() {
     const userid = document.getElementById("userid").value;
     const password = document.getElementById("password").value;
 
-    if (userid === "" || password === "") {
-        alert("Please fill all fields");
-        return;
-    }
-
-    /*fetch("http://localhost:3000/login", {
+    fetch("http://localhost:8080/api/login", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -17,45 +12,24 @@ function login() {
             password: password
         })
     })
-    .then(res => res.json())
+    .then(response => response.json())
     .then(data => {
         if (data.success) {
-            // SAVE SESSION
-            localStorage.setItem("isLoggedIn", "true");
-            
-            localStorage.setItem("studentUserId", data.student.userid);
-            localStorage.setItem("studentName", data.student.name);
-            localStorage.setItem("department", data.student.department);
+            // Save userid for later APIs
+            localStorage.setItem("userid", data.userid);
 
+            alert("Login successful");
+
+            // Redirect to dashboard
             window.location.href = "dashboard.html";
         } else {
-            alert(data.message);
+            alert("Invalid userid or password");
         }
     })
-    .catch(err => {
-        console.error(err);
+    .catch(error => {
+        console.error("Error:", error);
         alert("Server error");
-    });*/
-    fetch("http://localhost:8080/api/login", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json"
-  },
-  body: JSON.stringify({
-    userid: userid,
-    password: password
-  })
-})
-.then(res => res.json())
-.then(data => {
-  if (data.success) {
-    localStorage.setItem("userid", data.userid);
-    window.location.href = "dashboard.html";
-  } else {
-    alert("Invalid credentials");
-  }
-});
-
+    });
 }
 
 function goTo(page) {
