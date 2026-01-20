@@ -14,48 +14,53 @@
             <th>Subject</th>
             <th>Percentage</th>
         </tr>
+        <tbody id="attendanceBody"></tbody>
     </table>
 </div>
 
 <script src="script.js"></script>
 <script>
-   // 🔐 Check login
-const userid = localStorage.getItem("userid");
+    console.log("Attendance JS loaded");
 
-if (!userid || userid === "null") {
-    alert("Session expired. Please login again.");
+const userid = localStorage.getItem("userid");
+console.log("UserID from storage:", userid);
+
+if (!userid) {
+    alert("Please login again");
     window.location.href = "index.html";
-    throw new Error("No userid in localStorage");
+    throw new Error("No userid");
 }
 
-// 📡 Fetch attendance from Java backend
-fetch(`http://localhost:8080/api/student/attendance/${userid}`)
-    .then(response => response.json())
+fetch("http://localhost:8080/api/student/attendance/" + userid)
+    .then(res => {
+        console.log("Attendance API status:", res.status);
+        return res.json();
+    })
     .then(data => {
+        console.log("Attendance data:", data);
+
         const tbody = document.getElementById("attendanceBody");
         tbody.innerHTML = "";
 
-        if (data.length === 0) {
+        if (!Array.isArray(data) || data.length === 0) {
             tbody.innerHTML = "<tr><td colspan='2'>No attendance data</td></tr>";
             return;
         }
 
-        data.forEach(item => {
-            const row = `
+        data.forEach(a => {
+            tbody.innerHTML += `
                 <tr>
-                    <td>${item.subject}</td>
-                    <td>${item.percentage}</td>
+                    <td>${a.subject}</td>
+                    <td>${a.percentage}</td>
                 </tr>
             `;
-            tbody.innerHTML += row;
         });
     })
-    .catch(error => {
-        console.error("Error:", error);
+    .catch(err => {
+        console.error("Attendance fetch FAILED:", err);
         alert("Failed to load attendance");
     });
 
 </script>
-
 </body>
 </html>

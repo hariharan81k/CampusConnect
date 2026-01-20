@@ -15,45 +15,54 @@
             <th>Marks</th>
             <th>Grade</th>
         </tr>
+        <tbody id="resultsBody">
+        </tbody>
     </table>
 </div>
 
 <script src="script.js"></script>
 <script>
-    // 🔐 Login check
+    console.log("Results JS loaded");
+
 const userid = localStorage.getItem("userid");
+console.log("UserID from storage:", userid);
 
 if (!userid) {
-    alert("Please login first");
+    alert("Please login again");
     window.location.href = "index.html";
+    throw new Error("No userid");
 }
 
-// 📡 Fetch results from Java backend
-fetch(`http://localhost:8080/api/student/results/${userid}`)
-    .then(response => response.json())
+fetch("http://localhost:8080/api/student/results/" + userid)
+    .then(res => {
+        console.log("Results API status:", res.status);
+        return res.json();
+    })
     .then(data => {
+        console.log("Results data:", data);
+
         const tbody = document.getElementById("resultsBody");
         tbody.innerHTML = "";
 
-        if (data.length === 0) {
-            tbody.innerHTML = "<tr><td colspan='2'>No results found</td></tr>";
+        if (!Array.isArray(data) || data.length === 0) {
+            tbody.innerHTML = "<tr><td colspan='2'>No results data</td></tr>";
             return;
         }
 
-        data.forEach(item => {
-            const row = `
+        data.forEach(r => {
+            tbody.innerHTML += `
                 <tr>
-                    <td>${item.subject}</td>
-                    <td>${item.marks}</td>
+                    <td>${r.subject}</td>
+                    <td>${r.marks}</td>
                 </tr>
             `;
-            tbody.innerHTML += row;
         });
     })
-    .catch(error => {
-        console.error(error);
+    .catch(err => {
+        console.error("Results fetch FAILED:", err);
         alert("Failed to load results");
     });
+
 </script>
 
 </body>
