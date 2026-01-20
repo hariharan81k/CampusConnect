@@ -30,6 +30,10 @@ function login() {
         console.error("Error:", error);
         alert("Server error");
     });
+    if (localStorage.getItem("userid")) {
+    window.location.href = "dashboard.html";
+}
+
 }
 
 function goTo(page) {
@@ -37,17 +41,17 @@ function goTo(page) {
 }
 
 function logout() {
-    localStorage.removeItem("isLoggedIn");
-    alert("Logged out successfully");
+    localStorage.removeItem("userid");
+    alert ("Logout successful...!");
     window.location.href = "index.html";
 }
 
 
 function checkLogin() {
-    const isLoggedIn = localStorage.getItem("isLoggedIn");
+    const userid = localStorage.getItem("userid");
 
-    if (!isLoggedIn) {
+    if (!userid) {
         alert("Please login first");
-        window.location.href = "index.html";
+        window.location.href = "index.html"; // login page
     }
 }
