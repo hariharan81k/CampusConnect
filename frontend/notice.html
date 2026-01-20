@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>Notices</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/notice-style.css">
 </head>
 <body>
 
@@ -12,29 +12,42 @@
 
 <script src="script.js"></script>
 <script>
-checkLogin();
+    const userid = localStorage.getItem("userid");
+    if (!userid) {
+        alert("Please login first");
+        window.location.href = "index.html";
+    }
 
-fetch("http://localhost:3000/student/notices")
-    .then(res => res.json())
-    .then(data => {
-        const container = document.getElementById("noticeContainer");
+    fetch("http://localhost:8080/api/student/notices")
+        .then(res => {
+            console.log("Notices API status:", res.status);
+            return res.json();
+        })
+        .then(data => {
+            console.log("Notices data:", data);
 
-        if (data.notices.length === 0) {
-            container.innerHTML = "<p>No notices available</p>";
-            return;
-        }
+            const container = document.getElementById("noticeContainer");
+            container.innerHTML = "";
 
-        data.notices.forEach(n => {
-            const div = document.createElement("div");
-            div.innerHTML = `
-                <h3>${n.title}</h3>
-                <p>${n.content}</p>
-                <small>${n.created_at}</small>
-                <hr>
-            `;
-            container.appendChild(div);
+            if (!Array.isArray(data) || data.length === 0) {
+                container.innerHTML = "<p>No notices available</p>";
+                return;
+            }
+
+            data.forEach(n => {
+                container.innerHTML += `
+                    <div class="notice">
+                        <h3>${n.title}</h3>
+                        <p>${n.description}</p>
+                        <small>${n.date ?? ""}</small>
+                    </div>
+                `;
+            });
+        })
+        .catch(err => {
+            console.error("Notices fetch failed:", err);
+            alert("Failed to load notices");
         });
-    });
 </script>
 
 </body>
