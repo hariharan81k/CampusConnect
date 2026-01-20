@@ -19,24 +19,41 @@
 
 <script src="script.js"></script>
 <script>
-    checkLogin();
+   // 🔐 Check login
+const userid = localStorage.getItem("userid");
 
-    const userid = localStorage.getItem("studentUserId");
+if (!userid) {
+    alert("Please login first");
+    window.location.href = "index.html"; // login page
+}
 
-    fetch(`http://localhost:3000/student/attendance/${userid}`)
-        .then(res => res.json())
-        .then(data => {
-            const table = document.getElementById("attendanceTable");
+// 📡 Fetch attendance from Java backend
+fetch(`http://localhost:8080/api/student/attendance/${userid}`)
+    .then(response => response.json())
+    .then(data => {
+        const tbody = document.getElementById("attendanceBody");
+        tbody.innerHTML = "";
 
-            data.attendance.forEach(row => {
-                const tr = document.createElement("tr");
-                tr.innerHTML = `
-                    <td>${row.subject}</td>
-                    <td>${row.percentage}%</td>
-                `;
-                table.appendChild(tr);
-            });
+        if (data.length === 0) {
+            tbody.innerHTML = "<tr><td colspan='2'>No attendance data</td></tr>";
+            return;
+        }
+
+        data.forEach(item => {
+            const row = `
+                <tr>
+                    <td>${item.subject}</td>
+                    <td>${item.percentage}</td>
+                </tr>
+            `;
+            tbody.innerHTML += row;
         });
+    })
+    .catch(error => {
+        console.error("Error:", error);
+        alert("Failed to load attendance");
+    });
+
 </script>
 
 </body>
