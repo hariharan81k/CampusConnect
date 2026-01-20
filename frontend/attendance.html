@@ -22,9 +22,10 @@
    // 🔐 Check login
 const userid = localStorage.getItem("userid");
 
-if (!userid) {
-    alert("Please login first");
-    window.location.href = "index.html"; // login page
+if (!userid || userid === "null") {
+    alert("Session expired. Please login again.");
+    window.location.href = "index.html";
+    throw new Error("No userid in localStorage");
 }
 
 // 📡 Fetch attendance from Java backend
