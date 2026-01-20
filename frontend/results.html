@@ -20,34 +20,41 @@
 
 <script src="script.js"></script>
 <script>
-    checkLogin();
+    // 🔐 Login check
+const userid = localStorage.getItem("userid");
 
-    const userid = localStorage.getItem("studentUserId");
+if (!userid) {
+    alert("Please login first");
+    window.location.href = "index.html";
+}
 
-    fetch(`http://localhost:3000/student/results/${userid}`)
-        .then(res => res.json())
-        .then(data => {
-            const table = document.getElementById("resultsTable");
+// 📡 Fetch results from Java backend
+fetch(`http://localhost:8080/api/student/results/${userid}`)
+    .then(response => response.json())
+    .then(data => {
+        const tbody = document.getElementById("resultsBody");
+        tbody.innerHTML = "";
 
-            if (data.results.length === 0) {
-                table.innerHTML += `
-                    <tr>
-                        <td colspan="3">No results available</td>
-                    </tr>
-                `;
-                return;
-            }
+        if (data.length === 0) {
+            tbody.innerHTML = "<tr><td colspan='2'>No results found</td></tr>";
+            return;
+        }
 
-            data.results.forEach(row => {
-                const tr = document.createElement("tr");
-                tr.innerHTML = `
-                    <td>${row.subject}</td>
-                    <td>${row.marks}</td>
-                    <td>${row.grade}</td>
-                `;
-                table.appendChild(tr);
-            });
+        data.forEach(item => {
+            const row = `
+                <tr>
+                    <td>${item.subject}</td>
+                    <td>${item.marks}</td>
+                </tr>
+            `;
+            tbody.innerHTML += row;
         });
+    })
+    .catch(error => {
+        console.error(error);
+        alert("Failed to load results");
+    });
+
 </script>
 
 </body>
