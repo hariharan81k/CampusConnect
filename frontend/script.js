@@ -7,7 +7,7 @@ function login() {
         return;
     }
 
-    fetch("http://localhost:3000/login", {
+    /*fetch("http://localhost:3000/login", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -35,7 +35,27 @@ function login() {
     .catch(err => {
         console.error(err);
         alert("Server error");
-    });
+    });*/
+    fetch("http://localhost:8080/api/login", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({
+    userid: userid,
+    password: password
+  })
+})
+.then(res => res.json())
+.then(data => {
+  if (data.success) {
+    localStorage.setItem("userid", data.userid);
+    window.location.href = "dashboard.html";
+  } else {
+    alert("Invalid credentials");
+  }
+});
+
 }
 
 function goTo(page) {
