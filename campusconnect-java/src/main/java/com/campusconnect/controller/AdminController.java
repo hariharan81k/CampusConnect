@@ -1,20 +1,10 @@
 package com.campusconnect.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import com.campusconnect.model.Attendance;
-import com.campusconnect.model.Result;
-import com.campusconnect.model.Notice;
-import com.campusconnect.model.Student;
-import com.campusconnect.repository.AttendanceRepository;
-import com.campusconnect.repository.ResultRepository;
-import com.campusconnect.repository.NoticeRepository;
-import com.campusconnect.repository.StudentRepository;
+import com.campusconnect.model.*;
+import com.campusconnect.repository.*;
 
 @RestController
 @RequestMapping("/api/admin")
@@ -33,27 +23,44 @@ public class AdminController {
     @Autowired
     private NoticeRepository noticeRepo;
 
+    //Add Student
+    @PostMapping("/student")
+    public Student addStudent(@RequestBody Student student) {
+        return studentRepo.save(student);
+    }
+
+    //Add Attendance
     @PostMapping("/attendance")
-    public String addAttendance(@RequestBody Attendance a) {
-        Student s = studentRepo.findByUserid(a.getStudent().getUserid()).orElse(null);
+    public String addAttendance(@RequestBody Attendance attendance) {
+        Student s = studentRepo
+                .findByUserid(attendance.getStudent().getUserid())
+                .orElse(null);
+
         if (s == null) return "Student not found";
-        a.setStudent(s);
-        attendanceRepo.save(a);
+
+        attendance.setStudent(s);
+        attendanceRepo.save(attendance);
         return "Attendance added";
     }
 
-    @PostMapping("/results")
-    public String addResult(@RequestBody Result r) {
-        Student s = studentRepo.findByUserid(r.getStudent().getUserid()).orElse(null);
+    //Add Result
+    @PostMapping("/result")
+    public String addResult(@RequestBody Result result) {
+        Student s = studentRepo
+                .findByUserid(result.getStudent().getUserid())
+                .orElse(null);
+
         if (s == null) return "Student not found";
-        r.setStudent(s);
-        resultRepo.save(r);
+
+        result.setStudent(s);
+        resultRepo.save(result);
         return "Result added";
     }
 
+    //Add Notice
     @PostMapping("/notice")
-    public String addNotice(@RequestBody Notice n) {
-        noticeRepo.save(n);
+    public String addNotice(@RequestBody Notice notice) {
+        noticeRepo.save(notice);
         return "Notice added";
     }
 }
