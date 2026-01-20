@@ -15,7 +15,6 @@ public class Student {
     private String name;
     private String department;
 
-    // getters and setters
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 
