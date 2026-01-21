@@ -2,27 +2,20 @@
 <html>
 <head>
     <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="css/admin-style.css">
 </head>
 <body>
 
 <h2>Admin Dashboard</h2>
 
-<ul>
-    <li><a href="add-student.html">Add Student</a></li>
-    <li><a href="add-attendance.html">Add Attendance</a></li>
-    <li><a href="add-result.html">Upload Results</a></li>
-    <li><a href="add-notice.html">Post Notice</a></li>
-    <li><a href="#" onclick="logout()">Logout</a></li>
-</ul>
+<div class="admin-actions">
+    <button onclick="goAddStudent()">Add Student</button>
+    <button onclick="goAddAttendance()">Add Attendance</button>
+    <button onclick="goAddResult()">Add Result</button>
+    <button onclick="goAddNotice()">Add Notice</button>
+    <button onclick="adminLogout()">Logout</button>
+</div>
 
-
-<script>
-    if (!localStorage.getItem("adminLoggedIn")) {
-        alert("Admin login required");
-        window.location.href = "admin-login.html";
-    }
-</script>
-
-
+<script src="script.js"></script>
 </body>
 </html>
