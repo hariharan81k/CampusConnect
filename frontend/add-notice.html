@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>Post Notice</title>
-
+    <link rel="stylesheet" href="css/notice-style.css">
     <script>
     if (!localStorage.getItem("adminLoggedIn")){
         alert("Admin login required");
@@ -15,16 +15,15 @@
 <h2>Admin – Post Notice</h2>
 
 <input id="title" placeholder="Notice Title"><br><br>
-<textarea id="content" placeholder="Notice Content"></textarea><br><br>
+<textarea id="description" placeholder="Notice Content"></textarea><br><br>
 
-<button onclick="postNotice()">Post Notice</button>
+<button onclick="addNotice()">Post Notice</button>
 
 <script>
 function addNotice() {
     const data = {
         title: document.getElementById("title").value,
-        description: document.getElementById("description").value,
-        date: document.getElementById("date").value
+        description: document.getElementById("description").value
     };
 
     fetch("http://localhost:8080/api/admin/notice", {
