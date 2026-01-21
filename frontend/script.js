@@ -55,3 +55,34 @@ function checkLogin() {
         window.location.href = "index.html"; // login page
     }
 }
+
+//ADMIN
+
+function checkAdminLogin() {
+    if (!localStorage.getItem("adminLoggedIn")) {
+        alert("Admin login required");
+        window.location.href = "admin-login.html";
+    }
+}
+
+function goAddStudent() {
+    window.location.href = "add-student.html";
+}
+
+function goAddAttendance() {
+    window.location.href = "add-attendance.html";
+}
+
+function goAddResult() {
+    window.location.href = "add-result.html";
+}
+
+function goAddNotice() {
+    window.location.href = "add-notice.html";
+}
+
+function adminLogout() {
+    localStorage.removeItem("adminLoggedIn");
+    alert("Logged out successfully");
+    window.location.href = "admin-login.html";
+}
