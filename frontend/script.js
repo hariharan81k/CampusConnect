@@ -14,27 +14,25 @@ function login() {
     })
     .then(response => response.json())
     .then(data => {
+        console.log("Login response:", data);
+
         if (data.success) {
             // Save userid for later APIs
             localStorage.setItem("userid", data.userid);
 
             alert("Login successful");
 
-            // Redirect to dashboard
             window.location.href = "dashboard.html";
         } else {
             alert("Invalid userid or password");
         }
     })
     .catch(error => {
-        console.error("Error:", error);
+        console.error("Login fetch error:", error);
         alert("Server error");
     });
-    if (localStorage.getItem("userid")) {
-    window.location.href = "dashboard.html";
 }
 
-}
 
 function goTo(page) {
     window.location.href = page;
