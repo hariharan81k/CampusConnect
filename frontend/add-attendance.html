@@ -17,6 +17,13 @@
             margin-top: 10px;
         }
     </style>
+
+    <script>
+    if (!localStorage.getItem("adminLoggedIn")){
+        alert("Admin login required");
+        window.location.href = "admin-login.html";
+    }
+    </script>
 </head>
 <body>
 

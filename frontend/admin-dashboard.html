@@ -3,6 +3,13 @@
 <head>
     <title>Admin Dashboard</title>
     <link rel="stylesheet" href="css/admin-style.css">
+    <script>
+    if (!localStorage.getItem("adminLoggedIn")){
+        alert("Admin login required");
+        window.location.href = "admin-login.html";
+    }
+    </script>
+
 </head>
 <body>
 

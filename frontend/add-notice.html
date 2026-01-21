@@ -2,6 +2,13 @@
 <html>
 <head>
     <title>Post Notice</title>
+
+    <script>
+    if (!localStorage.getItem("adminLoggedIn")){
+        alert("Admin login required");
+        window.location.href = "admin-login.html";
+    }
+    </script>
 </head>
 <body>
 
