@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.*;
 
 import com.campusconnect.model.*;
 import com.campusconnect.repository.*;
+import java.util.Map;
+import java.util.HashMap;
 
 @RestController
 @RequestMapping("/api/admin")
@@ -22,6 +24,37 @@ public class AdminController {
 
     @Autowired
     private NoticeRepository noticeRepo;
+
+    //login-verify
+    @Autowired
+    private AdminRepository adminRepo;
+
+    @PostMapping("/login")
+    public Map<String, Object> adminLogin(@RequestBody Map<String, String> req) {
+
+        String username = req.get("username");
+        String password = req.get("password");
+
+        Map<String, Object> res = new HashMap<>();
+
+        Admin admin = adminRepo.findByUsername(username).orElse(null);
+
+        if (admin == null) {
+            res.put("success", false);
+            res.put("message", "Admin not found");
+            return res;
+        }
+
+        if (admin.getPassword().equals(password)) {
+            res.put("success", true);
+            res.put("admin", admin.getUsername());
+        } else {
+            res.put("success", false);
+            res.put("message", "Invalid password");
+        }
+
+        return res;
+    }
 
     //Add Student
     @PostMapping("/student")
