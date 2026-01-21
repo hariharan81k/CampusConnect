@@ -7,10 +7,10 @@
 
 <h2>Admin Login</h2>
 
-<input type="text" id="adminUser" placeholder="Username"><br><br>
-<input type="password" id="adminPass" placeholder="Password"><br><br>
+<input type="text" id="username" placeholder="Username"><br><br>
+<input type="password" id="password" placeholder="Password"><br><br>
 
-<button onclick="adminLogin()">Login</button>
+<button type="button" onclick="adminLogin()">Login</button>
 
 <script>
     function adminLogin() {
@@ -24,15 +24,20 @@
     })
     .then(res => res.json())
     .then(data => {
+        console.log("Admin login response:", data);
+
         if (data.success) {
             localStorage.setItem("adminLoggedIn", "true");
             window.location.href = "admin-dashboard.html";
         } else {
             alert("Invalid admin credentials");
         }
+    })
+    .catch(err => {
+        console.error("Admin login failed:", err);
+        alert("Server error");
     });
 }
-
 </script>
 </body>
 </html>
