@@ -2,7 +2,7 @@ function login() {
     const userid = document.getElementById("userid").value;
     const password = document.getElementById("password").value;
 
-    fetch("http://localhost:8080/api/login", {
+    fetch("http://16.171.137.208:8080/api/login", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"

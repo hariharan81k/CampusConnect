@@ -18,7 +18,7 @@
         window.location.href = "index.html";
     }
 
-    fetch("http://localhost:8080/api/student/notices")
+    fetch("http://16.171.137.208:8080/api/student/notices")
         .then(res => {
             console.log("Notices API status:", res.status);
             return res.json();

@@ -31,7 +31,7 @@ if (!userid) {
     throw new Error("No userid");
 }
 
-fetch("http://localhost:8080/api/student/attendance/" + userid)
+fetch("http://16.171.137.208:8080/api/student/attendance/" + userid)
     .then(res => {
         console.log("Attendance API status:", res.status);
         return res.json();
