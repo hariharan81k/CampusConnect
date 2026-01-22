@@ -53,7 +53,7 @@ function addResult() {
         }
     };
 
-    fetch("http://16.171.137.208:8080/api/admin/result", {
+    fetch("http://ec2-16-171-137-208.eu-north-1.compute.amazonaws.com/api/admin/result", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data)
