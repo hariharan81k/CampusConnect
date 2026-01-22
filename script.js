@@ -8,27 +8,21 @@ function login() {
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
-            userid: userid,
+            username: userid,
             password: password
         })
     })
     .then(response => response.json())
     .then(data => {
-        console.log("Login response:", data);
-
-        if (data.success) {
-            // Save userid for later APIs
-            localStorage.setItem("userid", data.userid);
-
+        if (data === true) {
             alert("Login successful");
-
             window.location.href = "dashboard.html";
         } else {
-            alert("Invalid userid or password");
+            alert("Invalid username or password");
         }
     })
     .catch(error => {
-        console.error("Login fetch error:", error);
+        console.error("Error:", error);
         alert("Server error");
     });
 }
