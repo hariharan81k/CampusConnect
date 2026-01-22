@@ -1,23 +1,50 @@
-# CampusConnect – Student Management System
+# CampusConnect 🎓  
+A full‑stack Campus Management System deployed on cloud using AWS and GitHub Pages.
 
-CampusConnect is a full‑stack web application designed to manage
-student attendance, results, and notices in a college environment.
+## 🔗 Live Demo
+- Frontend: https://hariharan81k.github.io/CampusConnect/
+- Backend API: http://16.171.x.x:8080
 
-## Features
-- Student login & dashboard
-- View attendance & results
-- View college notices
-- Admin panel for managing students
-- Secure password handling
-- MySQL database integration
+## 🛠️ Tech Stack
 
-## Tech Stack
-- Frontend: HTML, CSS, JavaScript
-- Backend: Node.js (current), Spring Boot (planned)
-- Database: MySQL
+### Frontend
+- HTML, CSS, JavaScript  
+- Hosted on **GitHub Pages**
 
-## Future Enhancements
-- Migration to Spring Boot backend
-- JWT authentication
-- Role‑based access control
-- Cloud deployment
+### Backend
+- Java  
+- Spring Boot  
+- Spring Data JPA  
+- Spring Security (basic)
+
+### Database
+- MySQL  
+- Hosted on **AWS RDS**
+
+### Cloud & DevOps
+- AWS EC2 for backend hosting  
+- AWS RDS for database  
+- GitHub Pages for frontend hosting  
+- Git for version control  
+
+---
+
+## 📌 Features
+
+### 👨‍🎓 Student
+- Student login  
+- View attendance  
+- View results  
+- View notices  
+
+### 👨‍🏫 Admin
+- Admin login  
+- Add student  
+- Add attendance  
+- Add results  
+- Publish notices  
+
+---
+
+## 🚀 Architecture
+
