@@ -12,7 +12,21 @@ function login() {
             password: password
         })
     })
-    .then(response => response.json())
+    .then(response => {
+
+        // 🔹 FIRST check HTTP status
+        if (response.status === 200) {
+            return response.json();   // OK, backend returned JSON true/false
+        } 
+        else if (response.status === 401 || response.status === 403) {
+            // Authentication failed
+            throw new Error("Invalid username or password");
+        } 
+        else {
+            // Any other server error
+            throw new Error("Server returned status: " + response.status);
+        }
+    })
     .then(data => {
         if (data === true) {
             alert("Login successful");
@@ -22,8 +36,8 @@ function login() {
         }
     })
     .catch(error => {
-        console.error("Error:", error);
-        alert("Server error");
+        console.error("Error:", error.message);
+        alert(error.message);
     });
 }
 
