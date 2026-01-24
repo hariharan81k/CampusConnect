@@ -8,7 +8,7 @@ function login() {
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
-            username: userid,
+            userid: userid,
             password: password
         })
     })
