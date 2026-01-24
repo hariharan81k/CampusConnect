@@ -28,7 +28,7 @@ function login() {
         }
     })
     .then(data => {
-        if (data === true) {
+        if (data.success === true) {
             alert("Login successful");
             window.location.href = "dashboard.html";
         } else {
