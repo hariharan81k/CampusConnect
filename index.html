@@ -5,38 +5,31 @@
     <title>Member Login</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
-
 </head>
+
 <body>
+    <div class="bg">
+        <div class="login-card">
 
-<div class="bg">
-    <div class="login-card">
-
-        <!-- LEFT SIDE -->
-        <div class="left">
-            <img src="logo.jpeg" alt="Login Illustration">
-        </div>
-
-        <!-- RIGHT SIDE -->
-        <div class="right">
-            <div class="welcome">
-                <h2>Welcome to PSRR!</h2>
+            <!-- LEFT SIDE -->
+            <div class="left">
+                <img src="logo.jpeg" alt="Login Illustration">
             </div>
-            <input type="email" id="userid" placeholder="User ID">
-            <input type="password" id="password" placeholder="Password">
-            
-            <div class="log-button" onclick="login()" role="button" tabindex="0" onkeydown="if(event.key === 'Enter' || event.key === ' ') login()"><button>LOGIN</button></div>
-            
-            <p class="forgot">Forgot Username / Password?</p>
-            <!-- <p class="create">Create your Account →</p> -->
+
+            <!-- RIGHT SIDE -->
+            <div class="right">
+                <div class="welcome">
+                    <h2>Welcome to PSRR!</h2>
+                </div>
+
+                <input type="email" id="userid" placeholder="User ID">
+                <input type="password" id="password" placeholder="Password">
+                <div class="log-button" onclick="login()" role="button"> <button>LOGIN</button></div>
+                <p class="forgot">Forgot Username / Password?</p>
+            </div>
         </div>
-
     </div>
-</div>
 
+    <script src="script.js"></script>
 </body>
-
-<script src="script.js"></script>
-
 </html>
-
