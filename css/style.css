@@ -57,7 +57,7 @@
 }
 
 /* Login button */
-.right button{
+.right button {
     width: 100%;
     padding: 12px;
     border: none;
@@ -68,8 +68,8 @@
     cursor: pointer;
     margin-top: 10px;
     font-weight: bold;
-
 }
+
 .log-button {
     width: 100%;
     padding: 12px 80px 12px 80px;
@@ -80,24 +80,33 @@
     background: #4cae4c;
 }
 
-/* Text links */
-.forgot {
+/* NEW: Links row under login */
+.login-links {
     margin-top: 15px;
+    display: flex;
+    justify-content: space-between;
     font-size: 13px;
+}
+
+/* Forgot password */
+.forgot {
     color: gray;
     cursor: pointer;
 }
 
-.create {
-    margin-top: 10px;
-    font-size: 14px;
-    color: #555;
-    cursor: pointer;
+/* Admin login link */
+.admin-link {
+    color: #7a2bc2;
+    text-decoration: none;
     font-weight: 600;
 }
 
-.welcome{
+.admin-link:hover {
+    text-decoration: underline;
+}
+
+/* Welcome text */
+.welcome {
     font-family: Georgia, 'Times New Roman', Times, serif;
     color: #b65eba;
-    
 }
