@@ -27,14 +27,20 @@ function login() {
             throw new Error("Server returned status: " + response.status);
         }
     })
-    .then(data => {
-        if (data.success === true) {
-            alert("Login successful");
-            window.location.href = "dashboard.html";
-        } else {
-            alert("Invalid username or password");
-        }
-    })
+    if (data.success === true) {
+
+    // SAVE LOGIN STATE
+    localStorage.setItem("userid", userid);
+
+    // If backend sends name, save it (optional)
+    if (data.name) {
+        localStorage.setItem("studentName", data.name);
+    }
+
+    alert("Login successful");
+    window.location.href = "dashboard.html";
+}
+
     .catch(error => {
         console.error("Error:", error.message);
         alert(error.message);
