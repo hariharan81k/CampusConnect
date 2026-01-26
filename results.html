@@ -33,7 +33,7 @@ if (!userid) {
     throw new Error("No userid");
 }
 
-fetch("http://16.171.137.208:8080/api/student/results/" + userid)
+fetch("https://campus-connect.duckdns.org/api/student/results/" + userid)
     .then(res => {
         console.log("Results API status:", res.status);
         return res.json();

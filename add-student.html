@@ -22,7 +22,7 @@
         name: document.getElementById("name").value
     };
 
-    fetch("http://16.171.137.208:8080/api/admin/student", {
+    fetch("https://campus-connect.duckdns.org/api/admin/student", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(student)

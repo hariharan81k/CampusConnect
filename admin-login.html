@@ -17,7 +17,7 @@
     const username = document.getElementById("username").value;
     const password = document.getElementById("password").value;
 
-    fetch("http://16.171.137.208:8080/api/admin/login", {
+    fetch("https://campus-connect.duckdns.org/api/admin/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, password })

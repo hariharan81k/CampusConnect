@@ -57,7 +57,7 @@ function submitAttendance() {
         }
     };
 
-    fetch("http://16.171.137.208:8080/api/admin/attendance", {
+    fetch("https://campus-connect.duckdns.org/api/admin/attendance", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data)

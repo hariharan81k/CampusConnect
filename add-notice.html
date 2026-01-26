@@ -26,7 +26,7 @@ function addNotice() {
         description: document.getElementById("description").value
     };
 
-    fetch("http://16.171.137.208:8080/api/admin/notice", {
+    fetch("https://campus-connect.duckdns.org/api/admin/notice", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data)
