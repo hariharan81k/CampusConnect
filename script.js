@@ -14,24 +14,19 @@ function login() {
     })
     .then(response => {
         if (response.status === 200) {
-            return response.json();   // read JSON from backend
-        } 
-        else if (response.status === 401 || response.status === 403) {
+            return response.json();
+        } else if (response.status === 401 || response.status === 403) {
             throw new Error("Invalid username or password");
-        } 
-        else {
+        } else {
             throw new Error("Server returned status: " + response.status);
         }
     })
     .then(data => {
-        // 🔹 THIS PART WAS MISSING / BROKEN BEFORE
-
         if (data.success === true) {
 
             // SAVE LOGIN STATE
             localStorage.setItem("userid", userid);
 
-            // If backend sends name, save it
             if (data.name) {
                 localStorage.setItem("studentName", data.name);
             }
@@ -49,12 +44,10 @@ function login() {
     });
 }
 
-// Navigation helpers
 function goTo(page) {
     window.location.href = page;
 }
 
-// Logout
 function logout() {
     localStorage.removeItem("userid");
     localStorage.removeItem("studentName");
@@ -62,7 +55,6 @@ function logout() {
     window.location.href = "index.html";
 }
 
-// Check student login before opening dashboard pages
 function checkLogin() {
     const userid = localStorage.getItem("userid");
 
@@ -72,7 +64,7 @@ function checkLogin() {
     }
 }
 
-// ================= ADMIN PART =================
+// ADMIN
 
 function checkAdminLogin() {
     if (!localStorage.getItem("adminLoggedIn")) {
