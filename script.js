@@ -13,62 +13,66 @@ function login() {
         })
     })
     .then(response => {
-
-        // 🔹 FIRST check HTTP status
         if (response.status === 200) {
-            return response.json();   // OK, backend returned JSON true/false
+            return response.json();   // read JSON from backend
         } 
         else if (response.status === 401 || response.status === 403) {
-            // Authentication failed
             throw new Error("Invalid username or password");
         } 
         else {
-            // Any other server error
             throw new Error("Server returned status: " + response.status);
         }
     })
-    if (data.success === true) {
+    .then(data => {
+        // 🔹 THIS PART WAS MISSING / BROKEN BEFORE
 
-    // SAVE LOGIN STATE
-    localStorage.setItem("userid", userid);
+        if (data.success === true) {
 
-    // If backend sends name, save it (optional)
-    if (data.name) {
-        localStorage.setItem("studentName", data.name);
-    }
+            // SAVE LOGIN STATE
+            localStorage.setItem("userid", userid);
 
-    alert("Login successful");
-    window.location.href = "dashboard.html";
-}
+            // If backend sends name, save it
+            if (data.name) {
+                localStorage.setItem("studentName", data.name);
+            }
 
+            alert("Login successful");
+            window.location.href = "dashboard.html";
+
+        } else {
+            alert("Invalid username or password");
+        }
+    })
     .catch(error => {
         console.error("Error:", error.message);
         alert(error.message);
     });
 }
 
-
+// Navigation helpers
 function goTo(page) {
     window.location.href = page;
 }
 
+// Logout
 function logout() {
     localStorage.removeItem("userid");
-    alert ("Logout successful...!");
+    localStorage.removeItem("studentName");
+    alert("Logout successful!");
     window.location.href = "index.html";
 }
 
-
+// Check student login before opening dashboard pages
 function checkLogin() {
     const userid = localStorage.getItem("userid");
 
     if (!userid) {
         alert("Please login first");
-        window.location.href = "index.html"; // login page
+        window.location.href = "index.html";
     }
 }
 
-//ADMIN
+// ================= ADMIN PART =================
 
 function checkAdminLogin() {
     if (!localStorage.getItem("adminLoggedIn")) {
