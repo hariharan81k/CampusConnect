@@ -18,7 +18,7 @@
         window.location.href = "index.html";
     }
 
-    fetch("http://ec2-16-171-137-208.eu-north-1.compute.amazonaws.com/api/student/notices")
+    fetch("http://16.171.137.208:8080/api/student/notices")
         .then(res => {
             console.log("Notices API status:", res.status);
             return res.json();
